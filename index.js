@@ -27,8 +27,7 @@ app.use(bodyParser.json());
       const options = {
         method: 'POST',
         url: 'https://api.hubapi.com/crm/v3/objects/contacts/search',
-        qs: {hapikey: process.env.HS_API_KEY},
-        headers: {accept: 'application/json', 'content-type': 'application/json'},
+        headers: {accept: 'application/json', 'content-type': 'application/json', 'Authorization': 'Bearer ' + process.env.HS_API_TOKEN },
         body: {
           filterGroups: [{filters: [{value: phoneNumber.replace(/\s/g, ""), propertyName: 'phone', operator: 'EQ'}]}],
           properties: ['firstname', 'hubspot_owner_id'],
@@ -60,8 +59,8 @@ app.use(bodyParser.json());
       var optionsOwner = {
         method: 'GET',
         url: `https://api.hubapi.com/crm/v3/owners/${contact}`,
-        qs: {idProperty: 'id', archived: 'false', hapikey: process.env.HS_API_KEY},
-        headers: {accept: 'application/json'}
+        qs: {idProperty: 'id', archived: 'false'},
+        headers: {accept: 'application/json', 'Authorization': 'Bearer ' + process.env.HS_API_TOKEN}
       };
       
       try {
